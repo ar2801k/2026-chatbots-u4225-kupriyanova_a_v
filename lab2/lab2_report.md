@@ -1,29 +1,19 @@
-# ITMO University — Laboratory Report 2
-
-| Field | Information |
-|---|---|
-| **University** | ITMO University |
-| **Faculty** | FICT |
-| **Course** | Vibe Coding for Business |
-| **Academic year** | 2026/2027 |
-| **Group** | U4225 |
-| **Student** | Kupriyanova Arina Vladimirovna |
-| **Laboratory work** | No. 2 |
-| **Report prepared** | 16.10.2026 |
-| **Defense date** | To be confirmed |
-
----
-
 # Отчёт по лабораторной работе №2
 
-## Подключение источника данных к Telegram-боту
+**Подключение SQLite к Telegram-боту**
 
-**Студент:** Куприянова Арина Владимировна  
-**Группа:** U4225  
-**Дисциплина:** Vibe Coding for Business  
-**Вуз:** Университет ИТМО  
-**Проект:** SmartShop Assistant 3.0  
-**Год:** 2026
+| Параметр | Значение |
+|---|---|
+| Университет | ИТМО |
+| Факультет | ФИКТ |
+| Дисциплина | Vibe Coding for Business |
+| Учебный год | 2026/2027 |
+| Студент | Куприянова Арина Владимировна |
+| Группа | U4225 |
+| Дата подготовки | 16.10.2026 |
+| Дата защиты | Не назначена |
+
+---
 
 ## 1. Цель работы
 

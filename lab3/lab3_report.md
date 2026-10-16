@@ -1,25 +1,19 @@
-# ITMO University — Laboratory Report 3
-
-| Field | Information |
-|---|---|
-| **University** | ITMO University |
-| **Faculty** | FICT |
-| **Course** | Vibe Coding for Business |
-| **Academic year** | 2026/2027 |
-| **Group** | U4225 |
-| **Student** | Kupriyanova Arina Vladimirovna |
-| **Laboratory work** | No. 3 |
-| **Report prepared** | 16.10.2026 |
-| **Defense date** | To be confirmed |
-
----
-
 # Отчёт по лабораторной работе №3
 
-**Студент:** Куприянова Арина Владимировна  
-**Группа:** U4225  
-**Дисциплина:** Vibe Coding for Business  
-**Тема:** Развёртывание SmartShop Assistant в облаке, тестирование и сбор обратной связи
+**Облачное развёртывание и пользовательское тестирование**
+
+| Параметр | Значение |
+|---|---|
+| Университет | ИТМО |
+| Факультет | ФИКТ |
+| Дисциплина | Vibe Coding for Business |
+| Учебный год | 2026/2027 |
+| Студент | Куприянова Арина Владимировна |
+| Группа | U4225 |
+| Дата подготовки | 16.10.2026 |
+| Дата защиты | Не назначена |
+
+---
 
 ## 1. Цель
 
