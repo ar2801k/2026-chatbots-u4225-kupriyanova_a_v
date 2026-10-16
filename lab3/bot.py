@@ -4,8 +4,8 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from telegram import ReplyKeyboardMarkup, Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, Update
+from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, ContextTypes, MessageHandler, filters
 
 import database as db
 
@@ -60,11 +60,51 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         '«заказать» — оформить заявку без оплаты.', reply_markup=MENU)
 
 
+async def send_product_cards(update, rows, heading):
+    """Show each product with one-tap cart and favorites actions."""
+    await update.message.reply_text(heading)
+    if not rows:
+        await update.message.reply_text('😔 Товары не найдены.', reply_markup=MENU)
+        return
+    for product in rows:
+        product_id = product['id']
+        keyboard = InlineKeyboardMarkup([[
+            InlineKeyboardButton('🛒 В корзину', callback_data=f'cart_add:{product_id}'),
+            InlineKeyboardButton('⭐ Избранное', callback_data=f'fav_toggle:{product_id}'),
+        ]])
+        await update.message.reply_text(describe(product), reply_markup=keyboard)
+
+
+async def product_button(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    uid = user_id(update)
+    try:
+        action, raw_id = query.data.split(':', 1)
+        pid = int(raw_id)
+    except (ValueError, AttributeError):
+        await query.message.reply_text('Некорректная кнопка.')
+        return
+    if db.product(pid) is None:
+        await query.message.reply_text('Товар больше не найден.')
+        return
+    if action == 'cart_add':
+        result = db.add_to_cart(uid, pid)
+        response = {'ok': '✅ Товар добавлен в корзину. Откройте «🛒 Корзина» в меню.',
+                    'stock': 'Недостаточно товара на складе.',
+                    'missing': 'Товар не найден.'}[result]
+    elif action == 'fav_toggle':
+        added = db.toggle_favorite(uid, pid)
+        response = '⭐ Добавлено в избранное.' if added else '⭐ Удалено из избранного.'
+    else:
+        response = 'Неизвестное действие.'
+    await query.message.reply_text(response, reply_markup=MENU)
+
+
 async def catalog(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id(update)
     context.user_data['mode'] = None
-    rows = db.products()
-    await update.message.reply_text('🛍 Каталог из базы данных:\n\n' + '\n\n'.join(map(describe, rows)), reply_markup=MENU)
+    await send_product_cards(update, db.products(), '🛍 Каталог из базы данных:')
 
 
 async def categories(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -108,7 +148,7 @@ async def orders(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def about(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id(update)
     context.user_data['mode'] = None
-    await update.message.reply_text('🎓 SmartShop Assistant 3.0 — лабораторная №2, SQLite.\nКуприянова Арина Владимировна, U4225, ИТМО.', reply_markup=MENU)
+    await update.message.reply_text('🎓 SmartShop Assistant 3.1 — лабораторная №3, Railway + SQLite.\nКуприянова Арина Владимировна, U4225, ИТМО.', reply_markup=MENU)
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -128,7 +168,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         context.user_data['mode'] = None
         category = CATEGORY_BUTTONS[raw]
         rows = db.products(category=category)
-        await update.message.reply_text(f'📂 {category}:\n\n' + '\n\n'.join(map(describe, rows)), reply_markup=CATEGORIES)
+        await send_product_cards(update, rows, f'📂 {category}:')
         return
     parts = lower.split()
     if len(parts) == 2 and parts[0] in ('купить', 'избранное', 'удалить'):
@@ -167,7 +207,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if context.user_data.get('mode') == 'search':
         context.user_data['mode'] = None
         rows = db.products(term=raw)
-        await update.message.reply_text('🔎 Результаты:\n\n' + '\n\n'.join(map(describe, rows)) if rows else '😔 Товары не найдены.', reply_markup=MENU)
+        await send_product_cards(update, rows, '🔎 Результаты поиска:')
         return
     await update.message.reply_text('Не понял запрос. Нажмите /help.', reply_markup=MENU)
 
@@ -184,6 +224,7 @@ def main():
     }
     for name, handler in handlers.items():
         app.add_handler(CommandHandler(name, handler))
+    app.add_handler(CallbackQueryHandler(product_button, pattern=r'^(cart_add|fav_toggle):[0-9]+$'))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     print('SmartShop Assistant 3.0 (SQLite) запущен!', flush=True)
     app.run_polling()
