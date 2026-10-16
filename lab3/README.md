@@ -31,7 +31,7 @@
 
 ## Материалы
 
-- [Отчёт](REPORT.md)
+- [Отчёт](lab3_report.md)
 - [История работы с ИИ](PROMPTS.md)
 - [Программа тестирования](TESTING.md)
 - [Шаблон учёта отзывов](feedback_template.csv)

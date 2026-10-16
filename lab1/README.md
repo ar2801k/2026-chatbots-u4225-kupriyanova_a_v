@@ -47,7 +47,7 @@ Python 3.14, python-telegram-bot 22.8, python-dotenv, Telegram Bot API, Git и G
 
 ## Документация
 
-- [Отчёт по лабораторной работе](REPORT.md)
+- [Отчёт по лабораторной работе](lab1_report.md)
 - [История использования ИИ](PROMPTS.md)
 - [Скриншоты тестирования](screenshots/)
 

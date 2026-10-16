@@ -28,7 +28,7 @@
 - `database.py` — схема SQLite и операции с данными.
 - `check_db.py` — диагностический скрипт просмотра списка таблиц и числа записей.
 - `requirements.txt` — зависимости.
-- `REPORT.md` — отчёт с результатами тестов.
+- `lab2_report.md` — отчёт с результатами тестов.
 - `PROMPTS.md` — журнал использования ИИ.
 - `screenshots/` — иллюстрации тестирования.
 
@@ -62,7 +62,7 @@ python lab2/check_db.py
 
 ## Ссылки
 
-- [Отчёт](REPORT.md)
+- [Отчёт](lab2_report.md)
 - [История использования ИИ](PROMPTS.md)
 - [Скриншоты](screenshots/)
 - [Telegram-бот](https://t.me/itmoftmi_kav_bot)

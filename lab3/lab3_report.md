@@ -1,12 +1,16 @@
-University: [ITMO University](https://itmo.ru/ru/)
-Faculty: [FICT](https://fict.itmo.ru)
-Course: [Vibe Coding: AI-???? ??? ???????](https://github.com/ex-itmo-ict-faculty/vibe-coding-for-business)
-Year: 2026/2027
-Group: U4225
-Author: Kupriyanova Arina Vladimirovna
-Lab: Lab3
-Date of create: 16.10.2026
-Date of finished: ?? ????????
+# ITMO University — Laboratory Report 3
+
+| Field | Information |
+|---|---|
+| **University** | ITMO University |
+| **Faculty** | FICT |
+| **Course** | Vibe Coding for Business |
+| **Academic year** | 2026/2027 |
+| **Group** | U4225 |
+| **Student** | Kupriyanova Arina Vladimirovna |
+| **Laboratory work** | No. 3 |
+| **Report prepared** | 16.10.2026 |
+| **Defense date** | To be confirmed |
 
 ---
 
